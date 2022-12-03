@@ -135,7 +135,7 @@ function repeatString(value, count) {
  */
 function removeFirstOccurrences(str, value) {
   // throw new Error('Not implemented');
-  return str.replace(value, ''); 
+  return str.replace(value, '');
 }
 
 /**
@@ -215,9 +215,9 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
   // throw new Error('Not implemented');
-  const firstRow = `┌${'─'.repeat(width - 2)}┐\n`,
-             row = `|${' '.repeat(width - 2)}|\n`,
-         lastRow = `└${'─'.repeat(width - 2)}┘\n`;
+  const firstRow = `┌${'─'.repeat(width - 2)}┐\n`;
+  const row = `│${' '.repeat(width - 2)}│\n`;
+  const lastRow = `└${'─'.repeat(width - 2)}┘\n`;
   return `${firstRow}${row.repeat(height - 2)}${lastRow}`;
 }
 
@@ -243,8 +243,10 @@ function encodeToRot13(str) {
   const collection1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   const collection2 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
   return str.split('')
-            .map(char => collection1.includes(char) ? char = collection2[collection1.indexOf(char)] : char)
-            .join('');
+    .map((char) => (collection1.includes(char)
+      ? collection2[collection1.indexOf(char)]
+      : char))
+    .join('');
 }
 
 /**
@@ -267,6 +269,7 @@ function isString(value) {
   } catch (error) {
     return false;
   }
+  return true;
 }
 
 
@@ -296,16 +299,13 @@ function isString(value) {
  */
 function getCardId(value) {
   // throw new Error('Not implemented');
-  const cards = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'],
-        suits = ['♣', '♦', '♥', '♠'];
-  [card, suit] = [...value];
-  return cards.indexOf(card) + suits.indexOf(suit) * cards.length;
+  const cards = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return cards.indexOf(value);
 }
-console.log(getCardId('A♣'));
-console.log(getCardId('2♣'));
-console.log(getCardId('3♣'));
-console.log(getCardId('Q♠'));
-console.log(getCardId('K♠'));
+
 
 module.exports = {
   concatenateStrings,

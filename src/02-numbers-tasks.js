@@ -75,7 +75,7 @@ function getAverage(value1, value2) {
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
   // throw new Error('Not implemented');
-  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 }
 
 /**
@@ -92,7 +92,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  */
 function getLinearEquationRoot(a, b) {
   // throw new Error('Not implemented');
-  return (b / a) !== 0 ? (b /a) * -1 : b / a;
+  return (b / a) !== 0 ? (b / a) * -1 : b / a;
 }
 
 
@@ -116,7 +116,9 @@ function getLinearEquationRoot(a, b) {
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
   // throw new Error('Not implemented');
-  return Math.acos((x1*x2 + y1*y2) / Math.sqrt(x1*x1 + y1*y1) * Math.sqrt(x2*x2 + y2*y2));
+  return Math.acos((x1 * x2 + y1 * y2)
+    / (Math.sqrt(x1 * x1 + y1 * y1)
+    * Math.sqrt(x2 * x2 + y2 * y2)));
 }
 
 /**
@@ -168,7 +170,7 @@ function parseNumberFromString(value) {
  */
 function getParallelepipedDiagonal(a, b, c) {
   // throw new Error('Not implemented');
-  return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2));
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
 
 
