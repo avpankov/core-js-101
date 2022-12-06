@@ -38,7 +38,7 @@ function findElement(arr, value) {
  */
 function generateOdds(len) {
   // throw new Error('Not implemented');
-  let arr = [];
+  const arr = [];
   let oddNum = 1;
   while (arr.length !== len) {
     if (oddNum % 2 !== 0) arr.push(oddNum);
@@ -113,7 +113,7 @@ function getArrayOfStrings(arr) {
  */
 function removeFalsyValues(arr) {
   // throw new Error('Not implemented');
-  return arr.filter(el => Boolean(el));
+  return arr.filter((el) => Boolean(el));
 }
 
 /**
@@ -145,7 +145,7 @@ function getUpperCaseStrings(arr) {
  */
 function getStringsLength(arr) {
   // throw new Error('Not implemented');
-  return arr.map((el) => el.length)
+  return arr.map((el) => el.length);
 }
 
 /**
@@ -254,7 +254,7 @@ function toArrayOfSquares(arr) {
  */
 function getMovingSum(arr) {
   // throw new Error('Not implemented');
-  let result = [arr[0]];
+  const result = [arr[0]];
   for (let i = 1; i < arr.length; i += 1) {
     result.push(arr[i] + result[i - 1]);
   }
@@ -274,7 +274,7 @@ function getMovingSum(arr) {
  */
 function getSecondItems(arr) {
   // throw new Error('Not implemented');
-  let result = [];
+  const result = [];
   for (let i = 0; i < arr.length; i += 1) {
     if ((i + 1) % 2 === 0) {
       result.push(arr[i]);
@@ -373,7 +373,7 @@ function sortDigitNamesByNumericOrder(arr) {
  */
 function getItemsSum(arr) {
   // throw new Error('Not implemented');
-  return arr.reduce((acc, cur) => acc + cur);
+  return arr.length === 0 ? 0 : arr.reduce((acc, cur) => acc + cur);
 }
 
 /**
@@ -390,7 +390,7 @@ function getItemsSum(arr) {
  */
 function getFalsyValuesCount(arr) {
   // throw new Error('Not implemented');
-  return arr.filter((el) => !Boolean(el)).length;
+  return arr.filter((el) => !el).length;
 }
 
 /**
@@ -468,7 +468,8 @@ function sortCitiesArray(arr) {
     if (a.country < b.country) return -1;
     if (a.city > b.city) return 1;
     if (a.city < b.city) return -1;
-  })
+    return null;
+  });
 }
 
 /**
@@ -491,9 +492,9 @@ function sortCitiesArray(arr) {
  */
 function getIdentityMatrix(n) {
   // throw new Error('Not implemented');
-  let result = [];
+  const result = [];
   for (let i = 0; i < n; i += 1) {
-    const arr = []
+    const arr = [];
     for (let j = 0; j < n; j += 1) {
       if (i === j) {
         arr.push(1);
@@ -519,7 +520,7 @@ function getIdentityMatrix(n) {
  */
 function getIntervalArray(start, end) {
   // throw new Error('Not implemented');
-  let result = []
+  const result = [];
   for (let i = start; i <= end; i += 1) {
     result.push(i);
   }
@@ -579,9 +580,10 @@ function group(array, keySelector, valueSelector) {
     if (map.has(keySelector(el))) {
       map.get(keySelector(el)).push(valueSelector(el));
     } else {
-      map.set(keySelector(el), [valueSelector(el)])
+      map.set(keySelector(el), [valueSelector(el)]);
     }
-  }) 
+    return null;
+  });
   return map;
 }
 
