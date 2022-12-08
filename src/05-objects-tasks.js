@@ -28,7 +28,7 @@ function Rectangle(width, height) {
     getArea() {
       return width * height;
     }
-  } 
+  }
 }
 
 
@@ -61,9 +61,9 @@ function getJSON(obj) {
  */
 function fromJSON(proto, json) {
   // throw new Error('Not implemented');
- const obj = JSON.parse(json);
- Object.setPrototypeOf(obj, proto);
- return obj;
+  const obj = JSON.parse(json);
+  Object.setPrototypeOf(obj, proto);
+  return obj;
 
 }
 
@@ -127,72 +127,136 @@ class MySuperBaseElementSelector {
     this.builder = {
       element: '',
       id: '',
-      class: '',
+      class: [],
       attr: '',
-      pseudoClass: '',
-      pseudoElement: ''
-    }
+      pseudoClass: [],
+      pseudoElement: '',
+      combiner: []
+    };
+    this.order = [];
   }
 
   element(value) {
+    if (this.builder.element) {
+      throw new Error('Element value should be unique');
+    };
+    if (this.order.length > 0) {
+      throw new Error('Wrong order');
+    };
     this.builder.element = value;
+    this.order.push(1);
     return this;
   }
 
   id(value) {
+    if (this.builder.id) {
+      throw new Error('Id value should be unique');
+    };
+    if (this.order.length > 0 && this.order[0] > 2) {
+      throw new Error('Wrong order');
+    };
     this.builder.id = `#${value}`;
+    this.order.push(2);
     return this;
   }
 
   class(value) {
-    this.builder.class = `.${value}`;
+    if (this.order.length > 0 && this.order[0] > 3) {
+      throw new Error('Wrong order');
+    };
+    this.builder.class.push(`.${value}`);
+    this.order.push(this.builder.class);
     return this;
   }
 
   attr(value) {
+    if (this.order.length > 0 && this.order[0] > 4) {
+      throw new Error('Wrong order');
+    };
     this.builder.attr = `[${value}]`;
+    this.order.push(this.builder.attr);
     return this;
   }
 
   pseudoClass(value) {
-    this.builder.pseudoClass = `:${value}`;
+    if (this.order.length > 0 && this.order[0] > 5) {
+      throw new Error('Wrong order');
+    };
+    this.builder.pseudoClass.push(`:${value}`);
+    this.order.push(this.builder.pseudoClass);
     return this;
   }
 
   pseudoElement(value) {
+    if (this.builder.pseudoElement) {
+      throw new Error('PseudoElement value should be unique');
+    }
     this.builder.pseudoElement = `::${value}`;
+    this.order.push(this.builder.pseudoElement);
     return this;
+  }
+
+  combine(selector1, combinator, selector2) {
+    this.builder.combiner.push(selector1.stringify());
+    this.builder.combiner.push(combinator);
+    this.builder.combiner.push(selector2.stringify());
+    return this;
+  }
+
+  stringify() {
+    let selector = '';
+    if (this.builder.combiner.length > 0) {
+      selector += this.builder.combiner.join(' ');
+    } else {
+      const keys = Object.keys(this.builder);
+      keys.forEach((key) => {
+        if (this.builder[key]) {
+          if (Array.isArray(this.builder[key])) {
+            selector += this.builder[key].join('');
+          } else {
+            selector += this.builder[key];
+          }
+        }
+      })
+    }
+    return selector;
   }
 }
 
 const cssSelectorBuilder = {
   element(value) {
     // throw new Error('Not implemented');
-    return new MySuperBaseElementSelector()
+    return new MySuperBaseElementSelector().element(value)
   },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
+  id(value) {
+    // throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().id(value);
   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
+  class(value) {
+    // throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().class(value);
   },
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
+  attr(value) {
+    // throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().attr(value);
   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
+  pseudoClass(value) {
+    // throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().pseudoClass(value);
   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
+  pseudoElement(value) {
+    // throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().pseudoElement(value);
   },
 
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
+  combine(selector1, combinator, selector2) {
+    // throw new Error('Not implemented');
+    return new MySuperBaseElementSelector().combine(selector1, combinator, selector2);
   },
 };
 
