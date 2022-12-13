@@ -31,7 +31,7 @@ function getFizzBuzz(num) {
   // throw new Error('Not implemented');
   if (num % 15 === 0) return 'FizzBuzz';
   if (num % 5 === 0) return 'Buzz';
-  if (num % 3 === 0) return 'Fizz'
+  if (num % 3 === 0) return 'Fizz';
   return num;
 }
 
@@ -68,7 +68,7 @@ function getFactorial(n) {
 
 function getSumBetweenNumbers(n1, n2) {
   // throw new Error('Not implemented');
-  let sum = 0
+  let sum = 0;
   for (let i = n1; i <= n2; i += 1) {
     sum += i;
   }
@@ -93,7 +93,7 @@ function getSumBetweenNumbers(n1, n2) {
  */
 function isTriangle(a, b, c) {
   // throw new Error('Not implemented');
-  return ((a + b) > c && (a + c) > b && (b + c) > a) ? true : false;
+  return !!(((a + b) > c && (a + c) > b && (b + c) > a));
 }
 
 
@@ -131,11 +131,13 @@ function isTriangle(a, b, c) {
  */
 function doRectanglesOverlap(rect1, rect2) {
   // throw new Error('Not implemented');
-  rect1.right = rect1.left + rect1.width;
-  rect1.bottom = rect1.top + rect1.height;
-  rect2.right = rect2.top + rect2.height;
-  rect2.bottom = rect2.top + rect2.height;
-  return rect1.right > rect2.left && rect1.bottom > rect2.top;
+  const r1 = rect1;
+  const r2 = rect2;
+  r1.right = r1.left + r1.width;
+  r1.bottom = r1.top + r1.height;
+  r2.right = r2.top + r2.height;
+  r2.bottom = r2.top + r2.height;
+  return r1.right > r2.left && r1.bottom > r2.top;
 }
 
 
@@ -214,7 +216,7 @@ function findFirstSingleChar(str) {
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
   // throw new Error('Not implemented');
   return (isStartIncluded ? '[' : '(')
-    + ((a > b) ? b + ', ' + a : a + ', ' + b)
+    + ((a > b) ? `${b}, ${a}` : `${a}, ${b}`)
     + (isEndIncluded ? ']' : ')');
 }
 
@@ -251,7 +253,7 @@ function reverseString(str) {
  */
 function reverseInteger(num) {
   // throw new Error('Not implemented');
-  return Number(num.toString().split('').reverse().join(''))
+  return Number(num.toString().split('').reverse().join(''));
 }
 
 
@@ -278,20 +280,18 @@ function reverseInteger(num) {
 function isCreditCardNumber(ccn) {
   // throw new Error('Not implemented');
   let sum = 0;
-  ccn = ccn.toString();
-  for (let i = 0; i < ccn.length; i += 1) {
-    if (ccn.length % 2 === 0) {
+  const number = ccn.toString();
+  for (let i = 0; i < number.length; i += 1) {
+    if (number.length % 2 === 0) {
       if (i % 2 === 0) {
-        sum += (Number(ccn[i]) * 2) > 9 ? (Number(ccn[i]) * 2) - 9 : (Number(ccn[i]) * 2);
+        sum += (Number(number[i]) * 2) > 9 ? (Number(number[i]) * 2) - 9 : (Number(number[i]) * 2);
       } else {
-        sum += Number(ccn[i]);
+        sum += Number(number[i]);
       }
+    } else if (i % 2 !== 0) {
+      sum += (Number(number[i]) * 2) > 9 ? (Number(number[i]) * 2) - 9 : (Number(number[i]) * 2);
     } else {
-      if (i % 2 !== 0) {
-        sum += (Number(ccn[i]) * 2) > 9 ? (Number(ccn[i]) * 2) - 9 : (Number(ccn[i]) * 2);
-      } else {
-        sum += Number(ccn[i]);
-      }
+      sum += Number(number[i]);
     }
   }
   return sum % 10 === 0;
@@ -341,7 +341,7 @@ function getDigitalRoot(num) {
  */
 function isBracketsBalanced(str) {
   // throw new Error('Not implemented');
-  let stack = [];
+  const stack = [];
   const openBrackets = ['(', '[', '{', '<'];
   const pairs = {
     ']': '[',
@@ -352,9 +352,7 @@ function isBracketsBalanced(str) {
   for (let i = 0; i < str.length; i += 1) {
     if (openBrackets.includes(str[i])) {
       stack.push(str[i]);
-    } else {
-      if (stack.pop() !== pairs[str[i]]) return false;
-    }
+    } else if (stack.pop() !== pairs[str[i]]) return false;
   }
   return stack.length === 0;
 }

@@ -38,13 +38,13 @@ function findElement(arr, value) {
  */
 function generateOdds(len) {
   // throw new Error('Not implemented');
-  const arr = [];
-  let oddNum = 1;
-  while (arr.length !== len) {
-    if (oddNum % 2 !== 0) arr.push(oddNum);
-    oddNum += 1;
-  }
-  return arr;
+  const array = new Array(len);
+  array.fill(1);
+  return array.map((elem, index) => {
+    let el = elem;
+    el = index * 2 + 1;
+    return el;
+  });
 }
 
 
@@ -254,11 +254,17 @@ function toArrayOfSquares(arr) {
  */
 function getMovingSum(arr) {
   // throw new Error('Not implemented');
-  const result = [arr[0]];
-  for (let i = 1; i < arr.length; i += 1) {
-    result.push(arr[i] + result[i - 1]);
-  }
-  return result;
+  let start;
+  return arr.map((elem, index) => {
+    let el = elem;
+    if (index === 0) {
+      start = el;
+      return el;
+    }
+    el += start;
+    start = el;
+    return el;
+  });
 }
 
 /**
@@ -275,11 +281,12 @@ function getMovingSum(arr) {
 function getSecondItems(arr) {
   // throw new Error('Not implemented');
   const result = [];
-  for (let i = 0; i < arr.length; i += 1) {
-    if ((i + 1) % 2 === 0) {
-      result.push(arr[i]);
+  arr.filter((elem, index) => {
+    if (index % 2 !== 0) {
+      result.push(elem);
     }
-  }
+    return elem;
+  });
   return result;
 }
 
@@ -300,7 +307,7 @@ function getSecondItems(arr) {
  */
 function propagateItemsByPositionIndex(arr) {
   // throw new Error('Not implemented');
-  let result = [];
+  const result = [];
   for (let i = 0; i < arr.length; i += 1) {
     for (let j = 0; j < i + 1; j += 1) {
       result.push(arr[i]);

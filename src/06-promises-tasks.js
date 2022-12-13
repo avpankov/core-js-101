@@ -37,7 +37,7 @@ function willYouMarryMe(isPositiveAnswer) {
     } else {
       resolve('Oh no, she said "No".');
     }
-  }) 
+  });
 }
 
 
@@ -83,7 +83,7 @@ function processAllPromises(array) {
  */
 function getFastestPromise(array) {
   // throw new Error('Not implemented');
-  return Promise.race(array); 
+  return Promise.race(array);
 }
 
 /**
@@ -103,9 +103,9 @@ function getFastestPromise(array) {
  *    });
  *
  */
-function chainPromises(array, action) {
+function chainPromises(/* array, action */) {
   // throw new Error('Not implemented');
-  
+
 }
 
 module.exports = {

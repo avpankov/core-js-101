@@ -107,11 +107,11 @@ function timeSpanToString(startDate, endDate) {
  */
 function angleBetweenClockHands(date) {
   // throw new Error('Not implemented');
-  const h = (date.getHours() > 12) ? date.getHours() - 12 : date.getHours();
+  const h = (date.getUTCHours() > 12) ? date.getUTCHours() - 12 : date.getUTCHours();
   const m = date.getMinutes();
   let angle = Math.abs(0.5 * (60 * h - 11 * m));
   if (angle > 180) angle = 360 - angle;
-  return angle * Math.PI / 180; 
+  return (angle * Math.PI) / 180;
 }
 
 

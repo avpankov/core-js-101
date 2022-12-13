@@ -27,8 +27,8 @@ function Rectangle(width, height) {
     height,
     getArea() {
       return width * height;
-    }
-  }
+    },
+  };
 }
 
 
@@ -64,7 +64,6 @@ function fromJSON(proto, json) {
   const obj = JSON.parse(json);
   Object.setPrototypeOf(obj, proto);
   return obj;
-
 }
 
 
@@ -131,7 +130,7 @@ class MySuperBaseElementSelector {
       attr: '',
       pseudoClass: [],
       pseudoElement: '',
-      combiner: []
+      combiner: [],
     };
     this.order = [];
   }
@@ -139,10 +138,10 @@ class MySuperBaseElementSelector {
   element(value) {
     if (this.builder.element) {
       throw new Error('Element value should be unique');
-    };
+    }
     if (this.order.length > 0) {
       throw new Error('Wrong order');
-    };
+    }
     this.builder.element = value;
     this.order.push(1);
     return this;
@@ -151,10 +150,10 @@ class MySuperBaseElementSelector {
   id(value) {
     if (this.builder.id) {
       throw new Error('Id value should be unique');
-    };
+    }
     if (this.order.length > 0 && this.order[0] > 2) {
       throw new Error('Wrong order');
-    };
+    }
     this.builder.id = `#${value}`;
     this.order.push(2);
     return this;
@@ -163,7 +162,7 @@ class MySuperBaseElementSelector {
   class(value) {
     if (this.order.length > 0 && this.order[0] > 3) {
       throw new Error('Wrong order');
-    };
+    }
     this.builder.class.push(`.${value}`);
     this.order.push(this.builder.class);
     return this;
@@ -172,7 +171,7 @@ class MySuperBaseElementSelector {
   attr(value) {
     if (this.order.length > 0 && this.order[0] > 4) {
       throw new Error('Wrong order');
-    };
+    }
     this.builder.attr = `[${value}]`;
     this.order.push(this.builder.attr);
     return this;
@@ -181,7 +180,7 @@ class MySuperBaseElementSelector {
   pseudoClass(value) {
     if (this.order.length > 0 && this.order[0] > 5) {
       throw new Error('Wrong order');
-    };
+    }
     this.builder.pseudoClass.push(`:${value}`);
     this.order.push(this.builder.pseudoClass);
     return this;
@@ -217,7 +216,7 @@ class MySuperBaseElementSelector {
             selector += this.builder[key];
           }
         }
-      })
+      });
     }
     return selector;
   }
@@ -226,7 +225,7 @@ class MySuperBaseElementSelector {
 const cssSelectorBuilder = {
   element(value) {
     // throw new Error('Not implemented');
-    return new MySuperBaseElementSelector().element(value)
+    return new MySuperBaseElementSelector().element(value);
   },
 
   id(value) {
