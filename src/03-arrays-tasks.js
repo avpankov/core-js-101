@@ -307,12 +307,20 @@ function getSecondItems(arr) {
  */
 function propagateItemsByPositionIndex(arr) {
   // throw new Error('Not implemented');
+  // const result = [];
+  // for (let i = 0; i < arr.length; i += 1) {
+  //   for (let j = 0; j < i + 1; j += 1) {
+  //     result.push(arr[i]);
+  //   }
+  // }
+  // return result;
   const result = [];
-  for (let i = 0; i < arr.length; i += 1) {
-    for (let j = 0; j < i + 1; j += 1) {
-      result.push(arr[i]);
-    }
-  }
+  arr.map((el, i) => {
+    const elem = new Array(i + 1);
+    elem.fill(el);
+    result.push(...elem);
+    return el;
+  });
   return result;
 }
 
@@ -423,13 +431,7 @@ function getFalsyValuesCount(arr) {
  */
 function findAllOccurrences(arr, item) {
   // throw new Error('Not implemented');
-  let count = 0;
-  for (let i = 0; i < arr.length; i += 1) {
-    if (arr[i] === item) {
-      count += 1;
-    }
-  }
-  return count;
+  return arr.reduce((acc, cur) => (cur === item ? acc + 1 : acc), 0);
 }
 
 /**
@@ -506,17 +508,13 @@ function sortCitiesArray(arr) {
  */
 function getIdentityMatrix(n) {
   // throw new Error('Not implemented');
-  const result = [];
-  for (let i = 0; i < n; i += 1) {
-    const arr = [];
-    for (let j = 0; j < n; j += 1) {
-      if (i === j) {
-        arr.push(1);
-      } else arr.push(0);
+  const arr = Array(n).fill(Array(n).fill(0));
+  return arr.map((subArr, i) => (subArr.map((el, j) => {
+    if (i === j) {
+      return 1;
     }
-    result.push(arr);
-  }
-  return result;
+    return 0;
+  })));
 }
 
 /**
@@ -534,11 +532,19 @@ function getIdentityMatrix(n) {
  */
 function getIntervalArray(start, end) {
   // throw new Error('Not implemented');
-  const result = [];
-  for (let i = start; i <= end; i += 1) {
-    result.push(i);
+  let length = end;
+  let plusValue = start;
+  if (start < 0) {
+    length = Math.abs(start) + end;
   }
-  return result;
+  if (start > 0) {
+    length = end - start;
+  }
+  return Array(length + 1).fill(0).map((value) => {
+    const val = value + plusValue;
+    plusValue += 1;
+    return val;
+  });
 }
 
 /**
